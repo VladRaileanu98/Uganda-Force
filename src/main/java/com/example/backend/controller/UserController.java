@@ -1,6 +1,13 @@
 package com.example.backend.controller;
 
+import com.example.backend.exception.NoCourseException;
+import com.example.backend.exception.NoRoleException;
+import com.example.backend.exception.NoUserException;
+import com.example.backend.model.Course;
+import com.example.backend.model.Role;
 import com.example.backend.model.User;
+import com.example.backend.repository.CourseRepository;
+import com.example.backend.repository.UserRepository;
 import com.example.backend.service.EmailService;
 import com.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,64 +21,45 @@ import javax.validation.Valid;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
     private final EmailService emailService;
+    private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
 
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public List<User> showUsers(){
         return userService.getUsers();
     }
-    @CrossOrigin(origins = {"*"})
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public ResponseEntity<User> adduser(@RequestBody User user) {
 
-        User newUser = userService.createStudent(user);
-        if (newUser != null)
-            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(HttpStatus.FOUND);
-
+    @RequestMapping(value = "/showById/{userId}", method = RequestMethod.GET)
+    public User findUserById(@PathVariable Integer userId) {
+        return userService.findUserById(userId);
     }
 
-
-    @CrossOrigin(origins = {"*"})
     @RequestMapping(value = "/checkEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<User> getUserByEmail(@RequestHeader Map<String, String> headers) {
-
-        User requestUser = userService.findUserByEmail(headers.get("email"));
-        if (requestUser != null) {
-            return new ResponseEntity<>(requestUser, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return userService.getUserByEmail(headers);
     }
 
-    @CrossOrigin(origins = {"*"})
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return userService.addUser(user);
+    }
+
     @RequestMapping(value = "/sendPassResetMail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<HttpClient> sendPassResetMail(@RequestBody Map<String, String> body) {
-
-        String resetPasswordCode = UUID.randomUUID().toString();
-        String email = body.get("email");
-        User requestUser = userService.findUserByEmail(body.get("email"));
-//        if (requestUser == null){
-//            return new ResponseEntity<>(new HttpClient(), HttpStatus.NOT_FOUND);
-//        }
-//        else {
-            return emailService.sendForgotPasswordEmail(email, resetPasswordCode);
-//        }
+        return userService.sendPassResetMail(body);
     }
 
-    @Transactional
-    @CrossOrigin(origins = {"*"})
     @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
     public User updateUserPasswordByEmail(@Valid @RequestBody User theUser) {
         try {
@@ -80,9 +68,12 @@ public class UserController {
         }catch (HibernateException e){
             return null;
         }
-
     }
 
+    @PutMapping("/add/{courseId}/{userId}")
+    public void assignCourseToUser(@PathVariable Integer courseId,@PathVariable  Integer userId) throws NoCourseException, NoUserException {
+        userService.assignCourseToUser(courseId,userId);
+    }
 }
 
 

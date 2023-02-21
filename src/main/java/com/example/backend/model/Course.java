@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,8 +23,8 @@ public class Course {//adawda
     @NotNull
     private String description;
 
-    @ManyToOne
-    User user;
+    @ManyToMany
+    List<User> userList = new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;

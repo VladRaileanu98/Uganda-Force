@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("course")
+@RequestMapping("/course")
 public class CourseController {
     private final CourseService courseService;
     private final UserService userService;
@@ -22,7 +22,7 @@ public class CourseController {
     private final CourseRepository courseRepository;
 
     @CrossOrigin(origins = {"*"})
-    @RequestMapping(value = "/getAllCourses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<List<Course>> getAllCourses() {
 
