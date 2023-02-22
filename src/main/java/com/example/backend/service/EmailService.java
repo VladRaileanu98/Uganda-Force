@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class EmailService {
-
-
     private final JavaMailSender emailSender;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;

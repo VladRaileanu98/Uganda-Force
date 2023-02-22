@@ -19,8 +19,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/role")
 public class RoleController {
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private  final RoleService roleService;
     @GetMapping("/showAll")
     public List<Role> getAllRoles(){
@@ -36,10 +34,6 @@ public class RoleController {
         return roleService.createRole(role);
     }
 
-//    @PutMapping("/assignUserToRole/{userId}/{roleId}")
-//    public void assignUserToRole(@PathVariable Integer roleId, @PathVariable Integer userId) throws NoRoleException, NoUserException{
-//        roleService.assignUserToRole(roleId,userId);
-//    }
     @PutMapping("/add/{userId}/{roleId}")
     public void assignUserToRole(@PathVariable Integer userId,@PathVariable  Integer roleId) throws NoRoleException, NoUserException {
         roleService.assignUserToRole(userId,roleId);

@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
 import com.example.backend.exception.NoRoleException;
 import com.example.backend.exception.NoUserException;
@@ -29,9 +30,6 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final EmailService emailService;
-    private final UserRepository userRepository;
-    private final CourseRepository courseRepository;
 
     @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public List<User> showUsers(){
@@ -71,7 +69,7 @@ public class UserController {
     }
 
     @PutMapping("/add/{courseId}/{userId}")
-    public void assignCourseToUser(@PathVariable Integer courseId,@PathVariable  Integer userId) throws NoCourseException, NoUserException {
+    public void assignCourseToUser(@PathVariable Integer courseId,@PathVariable  Integer userId) throws NoCourseException, NoUserException, FoundDuplicateException {
         userService.assignCourseToUser(courseId,userId);
     }
 }

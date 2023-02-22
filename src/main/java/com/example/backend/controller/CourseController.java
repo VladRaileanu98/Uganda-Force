@@ -17,9 +17,6 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
     private final CourseService courseService;
-    private final UserService userService;
-    private final EmailService emailService;
-    private final CourseRepository courseRepository;
 
     @CrossOrigin(origins = {"*"})
     @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

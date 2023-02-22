@@ -1,6 +1,5 @@
 package com.example.backend.service;
 
-import com.example.backend.model.LoginRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -24,7 +23,6 @@ public class JWTUtils {
                 .withIssuedAt(new Date())
                 .sign(algorithm);
     }
-
     public boolean validate(String jwt) {
         JWTVerifier jwtVerifier = JWT.require(algorithm)
                 .build();
