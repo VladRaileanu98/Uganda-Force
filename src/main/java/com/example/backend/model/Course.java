@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {//adawda
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +21,6 @@ public class Course {//adawda
     private String name;
     @NotNull
     private String description;
-
     @ManyToMany
     List<User> userList = new ArrayList<>();
 

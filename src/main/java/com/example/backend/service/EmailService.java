@@ -42,6 +42,7 @@ public class EmailService {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     public ResponseEntity<String> sendWhenACourseIsAdded( String courseName) {
         Role role = roleRepository.getRoleByName("student") ;
         List<User> students = userRepository.findAllByRole(role) ;
@@ -55,6 +56,7 @@ public class EmailService {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     public ResponseEntity<String> sendWhenAQuizIsAvailable(String studentEmail, String newTakenQuiz) {
         sendSimpleMessage(studentEmail,
                 "Quiz Available",

@@ -26,11 +26,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-
     @ManyToOne
-    //@JoinColumn(name = "role_id")
     Role role;
-
     @ManyToMany
     List<Course> courseList = new ArrayList<>();
 }

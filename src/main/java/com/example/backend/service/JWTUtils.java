@@ -23,6 +23,7 @@ public class JWTUtils {
                 .withIssuedAt(new Date())
                 .sign(algorithm);
     }
+
     public boolean validate(String jwt) {
         JWTVerifier jwtVerifier = JWT.require(algorithm)
                 .build();
@@ -33,6 +34,4 @@ public class JWTUtils {
         }
         return true;
     }
-
-
 }

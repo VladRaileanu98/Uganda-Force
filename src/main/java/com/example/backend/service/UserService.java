@@ -37,6 +37,7 @@ public class UserService {
     public User findUserByEmail(String email){
         return userRepository.findUserByEmail(email);
     }
+
     public ResponseEntity<User> getUserByEmail(Map<String, String> headers) {
         User requestUser = findUserByEmail(headers.get("email"));
         if (requestUser != null) {

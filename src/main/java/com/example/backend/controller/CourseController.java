@@ -18,7 +18,11 @@ import java.util.List;
 public class CourseController {
     private final CourseService courseService;
 
-    @CrossOrigin(origins = {"*"})
+    @GetMapping("/showById/{courseId}")
+    public ResponseEntity<Course> getCourseById(@PathVariable Integer courseId){
+        return courseService.getCourseById(courseId);
+    }
+
     @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<List<Course>> getAllCourses() {
@@ -40,5 +44,10 @@ public class CourseController {
     @GetMapping("file/download-file/{courseId}/shared/{fileName}")
     public void downloadObject2(@PathVariable Integer courseId, @PathVariable String fileName) {
         courseService.downloadObject(courseId, fileName, true);
+    }
+
+    @PostMapping("create")
+    public Course createCourse(@RequestBody Course course){
+        return courseService.addCourse(course);
     }
 }

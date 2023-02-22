@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequestMapping("/role")
 public class RoleController {
     private  final RoleService roleService;
+
     @GetMapping("/showAll")
     public List<Role> getAllRoles(){
         return roleService.getAllRoles();
@@ -29,6 +30,7 @@ public class RoleController {
     public ResponseEntity<Role> getRoleById(@PathVariable Integer roleId){
         return roleService.getRoleById(roleId);
     }
+
     @PostMapping("/create")
     public Role createRole(@RequestBody Role role){
         return roleService.createRole(role);
@@ -38,5 +40,4 @@ public class RoleController {
     public void assignUserToRole(@PathVariable Integer userId,@PathVariable  Integer roleId) throws NoRoleException, NoUserException {
         roleService.assignUserToRole(userId,roleId);
     }
-
 }

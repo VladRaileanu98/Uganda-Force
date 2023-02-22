@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     private final LoginService loginService;
 
-    @CrossOrigin(origins = {"*"})
     @RequestMapping(value = "/signIn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<LoginResponse> loginResponse(@RequestBody LoginRequest loginRequest){

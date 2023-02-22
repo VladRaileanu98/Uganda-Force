@@ -2,7 +2,9 @@ package com.example.backend.service;
 
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
+import com.google.cloud.storage.testing.RemoteStorageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -17,10 +19,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseService {
     private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
+
+    public ResponseEntity<Course> getCourseById(Integer courseId){
+        Course course= courseRepository.findById(courseId)
+                .orElseThrow(()-> new RemoteStorageHelper.StorageHelperException("Course doesnt exist"));
+        return ResponseEntity.ok(course);
+    }
+
+    public Course addCourse(Course course) {
+        return courseRepository.save(course);
+    }
+
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
+
     public void downloadObject(Integer courseId, String objectName, Boolean shared) {
         String projectId = "amiable-catfish-363617";
         String bucketName = "e-learning-storage";
@@ -55,11 +68,4 @@ public class CourseService {
                         + " to "
                         + filePath);
     }
-    public Course getCourseById(Integer courseId){
-        return courseRepository.getCourseById(courseId);
-    }
-    public Course addCourse(Course course) {
-        return courseRepository.save(course);
-    }
-
 }
