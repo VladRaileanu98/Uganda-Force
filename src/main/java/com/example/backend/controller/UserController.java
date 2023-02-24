@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.http.HttpClient;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -71,6 +69,21 @@ public class UserController {
     @PutMapping("/add/{courseId}/{userId}")
     public void assignCourseToUser(@PathVariable Integer courseId,@PathVariable  Integer userId) throws NoCourseException, NoUserException, FoundDuplicateException {
         userService.assignCourseToUser(courseId,userId);
+    }
+
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user){
+        user = userService.updateUser(id, user);
+        return ResponseEntity.ok(user);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteUser(@PathVariable Integer id){
+        boolean deleted = false;
+        deleted = userService.deleteUser(id);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", deleted);
+        return ResponseEntity.ok(response);
     }
 }
 

@@ -92,4 +92,16 @@ public class UserService {
             userRepository.save(userOptional.get());
         }
     }
+
+    public User updateUser(Integer id, User user){
+        User updatedUser = findUserById(id);
+        updatedUser = user;
+        userRepository.save(updatedUser);
+        return updatedUser;
+    }
+    public boolean deleteUser(Integer id){
+        User user = userRepository.findUserById(id);
+        userRepository.delete(user);
+        return true;
+    }
 }
