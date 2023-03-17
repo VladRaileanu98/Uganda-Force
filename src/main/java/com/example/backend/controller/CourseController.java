@@ -1,10 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Course;
-import com.example.backend.repository.CourseRepository;
 import com.example.backend.service.CourseService;
-import com.example.backend.service.EmailService;
-import com.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

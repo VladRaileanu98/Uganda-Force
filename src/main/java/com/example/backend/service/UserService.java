@@ -24,7 +24,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final CourseRepository courseRepository;
-    private final EmailService emailService;
 
     public List<User> getUsers(){
         return userRepository.findAll();
@@ -61,13 +60,6 @@ public class UserService {
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.FOUND);
-    }
-
-    public ResponseEntity<HttpClient> sendPassResetMail(Map<String, String> body) {
-        String resetPasswordCode = UUID.randomUUID().toString();
-        String email = body.get("email");
-        User requestUser = findUserByEmail(body.get("email"));
-        return emailService.sendForgotPasswordEmail(email, resetPasswordCode);
     }
 
     public User updateUserPasswordByEmail(User user){

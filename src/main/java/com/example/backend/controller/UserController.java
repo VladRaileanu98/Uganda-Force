@@ -2,22 +2,15 @@ package com.example.backend.controller;
 
 import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
-import com.example.backend.exception.NoRoleException;
 import com.example.backend.exception.NoUserException;
-import com.example.backend.model.Course;
-import com.example.backend.model.Role;
 import com.example.backend.model.User;
-import com.example.backend.repository.CourseRepository;
-import com.example.backend.repository.UserRepository;
-import com.example.backend.service.EmailService;
 import com.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.HibernateException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.transaction.Transactional;
+
 import javax.validation.Valid;
 import java.net.http.HttpClient;
 import java.util.*;
@@ -50,11 +43,6 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @RequestMapping(value = "/sendPassResetMail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    ResponseEntity<HttpClient> sendPassResetMail(@RequestBody Map<String, String> body) {
-        return userService.sendPassResetMail(body);
-    }
 
     @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
     public User updateUserPasswordByEmail(@Valid @RequestBody User theUser) {
