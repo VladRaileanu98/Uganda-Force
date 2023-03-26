@@ -47,7 +47,7 @@ public class UserService {
 
     public User createEmployee(User user) {
         if(userRepository.countByEmail(user.getEmail()) == 0){
-            user.setRole(roleRepository.getRoleByName("employee"));
+            user.setRole(roleRepository.getRoleByName("ROLE_USER"));
             return userRepository.save(user);
         } else{
             return null;

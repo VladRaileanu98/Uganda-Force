@@ -1,19 +1,10 @@
-INSERT INTO employee(`id`,`name`,`age`,`sex`) VALUES(1,"Maria",21,"F");
-INSERT INTO employee(`id`,`name`,`age`,`sex`) VALUES(2,"Elena",23,"F");
-INSERT INTO employee(`id`,`name`,`age`,`sex`) VALUES(3,"Marius",29,"M");
 
-INSERT INTO user(`id`,`email`,`first_name`,`last_name`,`password`) VALUES(1,"gicu@gmail.com","gicu","dinamita","parola");
-INSERT INTO user(`id`,`email`,`first_name`,`last_name`,`password`) VALUES(2,"tache@gmail.com","tache","ionescu","parola");
-INSERT INTO user(`id`,`email`,`first_name`,`last_name`,`password`) VALUES(3,"virgil@gmail.com","virgil","popandau","parola");
-
-
+INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(1,"gicu@gmail.com","gicu","parola");
+INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(2,"tache@gmail.com","tache","parola");
+INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(3,"virgil@gmail.com","virgil","parola");
 INSERT INTO course(`id`,`name`,`description`) VALUES(1,"matematica","integrals");
 INSERT INTO course(`id`,`name`,`description`) VALUES(2,"fizica","quantum");
 INSERT INTO course(`id`,`name`,`description`) VALUES(3,"filozofie","communism");
-
-
-INSERT INTO role(`id`,`name`) VALUES(1,"employee");
-INSERT INTO role(`id`,`name`) VALUES(2,"administrator");
-INSERT INTO role(`id`,`name`) VALUES(3,"guest");
-
-
+insert into roles(`name`) values('ROLE_USER');
+insert into roles(`name`) values('ROLE_MODERATOR');
+insert into roles(`name`) values('ROLE_ADMIN');
