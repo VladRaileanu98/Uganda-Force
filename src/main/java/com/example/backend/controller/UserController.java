@@ -38,6 +38,7 @@ public class UserController {
         return userService.getUserByEmail(headers);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(@RequestBody User user) {
         return userService.addUser(user);

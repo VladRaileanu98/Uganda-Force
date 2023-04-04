@@ -4,6 +4,7 @@ import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
 import com.example.backend.exception.NoUserException;
 import com.example.backend.model.Course;
+import com.example.backend.model.Role;
 import com.example.backend.model.User;
 import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.RoleRepository;
@@ -13,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.net.http.HttpClient;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +45,7 @@ public class UserService {
 
     public User createEmployee(User user) {
         if(userRepository.countByEmail(user.getEmail()) == 0){
-            user.setRole(roleRepository.getRoleByName("ROLE_USER"));
+
             return userRepository.save(user);
         } else{
             return null;
