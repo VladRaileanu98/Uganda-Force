@@ -20,6 +20,10 @@ import java.util.List;
 public class CourseService {
     private final CourseRepository courseRepository;
 
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
+    }
+
     public ResponseEntity<Course> getCourseById(Integer courseId){
         Course course= courseRepository.findById(courseId)
                 .orElseThrow(()-> new RemoteStorageHelper.StorageHelperException("Course doesnt exist"));
@@ -30,8 +34,18 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+    public Course updateCourse(Integer id, Course course){
+        Course updatedCourse = courseRepository.findCourseById(id);
+        updatedCourse.setName(course.getName());
+        updatedCourse.setDescription(course.getDescription());
+        courseRepository.save(updatedCourse);
+        return updatedCourse;
+    }
+
+    public boolean deleteCourse(Integer id){
+        Course course = courseRepository.findCourseById(id);
+        courseRepository.delete(course);
+        return true;
     }
 
     public void downloadObject(Integer courseId, String objectName, Boolean shared) {

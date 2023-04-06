@@ -85,7 +85,10 @@ public class UserService {
 
     public User updateUser(Integer id, User user){
         User updatedUser = findUserById(id);
-        updatedUser = user;
+        updatedUser.setUsername(user.getUsername());
+        updatedUser.setRoles(user.getRoles());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword(user.getPassword());
         userRepository.save(updatedUser);
         return updatedUser;
     }

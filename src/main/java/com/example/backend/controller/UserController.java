@@ -66,6 +66,7 @@ public class UserController {
         user = userService.updateUser(id, user);
         return ResponseEntity.ok(user);
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteUser(@PathVariable Integer id){
         boolean deleted = false;
