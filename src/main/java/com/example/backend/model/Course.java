@@ -21,6 +21,9 @@ public class Course {
     private String name;
     @NotNull
     private String description;
+
+    @NotNull
+    private String embedLink;
     @ManyToMany
     List<User> userList = new ArrayList<>();
 

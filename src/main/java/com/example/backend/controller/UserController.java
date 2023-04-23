@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.http.HttpClient;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -62,8 +61,9 @@ public class UserController {
     }
 
     @PutMapping("/add/{courseId}/{userId}")
-    public void assignCourseToUser(@PathVariable Integer courseId,@PathVariable  Integer userId) throws NoCourseException, NoUserException, FoundDuplicateException {
+    public ResponseEntity<String> assignCourseToUser(@PathVariable Integer courseId, @PathVariable  Integer userId) throws NoCourseException, NoUserException, FoundDuplicateException {
         userService.assignCourseToUser(courseId,userId);
+        return ResponseEntity.ok("added course no." + courseId + " to user with id: " + userId);
     }
 
 

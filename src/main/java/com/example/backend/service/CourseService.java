@@ -45,6 +45,7 @@ public class CourseService {
         Course updatedCourse = courseRepository.findCourseById(id);
         updatedCourse.setName(course.getName());
         updatedCourse.setDescription(course.getDescription());
+        updatedCourse.setEmbedLink(course.getEmbedLink());
         courseRepository.save(updatedCourse);
         return updatedCourse;
     }
