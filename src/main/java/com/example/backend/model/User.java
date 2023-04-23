@@ -1,6 +1,6 @@
 package com.example.backend.model;
 
-
+//a random message to test git
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,7 +58,7 @@ public class User {
 
     public Integer getId() {
         return id;
-    }git
+    }
 
     public void setId(Integer id) {
         this.id = id;
