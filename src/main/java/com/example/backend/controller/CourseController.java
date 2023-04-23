@@ -33,6 +33,11 @@ public class CourseController {
         }
     }
 
+    @GetMapping("/showAll/{userId}")
+    public List<Course> getAllCoursesByUserId(@PathVariable Integer userId){
+        return courseService.getAllCoursesByUserId(userId);
+    }
+
     @GetMapping("/showById/{courseId}")
     public ResponseEntity<Course> getCourseById(@PathVariable Integer courseId){
         return courseService.getCourseById(courseId);
@@ -43,7 +48,8 @@ public class CourseController {
 //        return courseService.findCourseById(courseId);
 //    }
 //
-    @PostMapping("/create")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Course createCourse(@RequestBody Course course){
         return courseService.addCourse(course);
     }

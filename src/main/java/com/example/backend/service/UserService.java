@@ -27,6 +27,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<Course> getUserCourses(Integer id){
+        return userRepository.getUserById(id).getCourseList();
+    }
+
     public User findUserById(Integer userId) {
         return userRepository.findUserById(userId);
     }

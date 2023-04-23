@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
 import com.example.backend.exception.NoUserException;
+import com.example.backend.model.Course;
 import com.example.backend.model.User;
 import com.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,11 @@ public class UserController {
     @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public List<User> showUsers(){
         return userService.getUsers();
+    }
+
+    @GetMapping("/showAllCourses/{userId}")
+    public List<Course> showUserCourses(@PathVariable Integer userId){
+        return userService.getUserCourses(userId);
     }
 
     @RequestMapping(value = "/showById/{userId}", method = RequestMethod.GET)
