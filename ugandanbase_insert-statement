@@ -2,9 +2,10 @@
 INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(1,"gicu@gmail.com","gicu","parola");
 INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(2,"tache@gmail.com","tache","parola");
 INSERT INTO users(`id`,`email`,`username`,`password`) VALUES(3,"virgil@gmail.com","virgil","parola");
-INSERT INTO course(`id`,`name`,`description`) VALUES(1,"matematica","integrals");
-INSERT INTO course(`id`,`name`,`description`) VALUES(2,"fizica","quantum");
-INSERT INTO course(`id`,`name`,`description`) VALUES(3,"filozofie","communism");
+INSERT INTO course(`id`,`name`,`description`,`embed_link`) VALUES(1,"matematica","integrals", "default");
+INSERT INTO course(`id`,`name`,`description`,`embed_link`) VALUES(2,"fizica","quantum", "default");
+INSERT INTO course(`id`,`name`,`description`,`embed_link`) VALUES(3,"filozofie","communism", "default");
+INSERT INTO course(`id`,`name`,`description`,`embed_link`) VALUES(4,"chimie","fundamente", "default");
 insert into roles(`name`) values('ROLE_USER');
 insert into roles(`name`) values('ROLE_MODERATOR');
 insert into roles(`name`) values('ROLE_ADMIN');
