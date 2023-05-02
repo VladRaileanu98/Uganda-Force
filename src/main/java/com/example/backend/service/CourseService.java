@@ -31,10 +31,10 @@ public class CourseService {
         return null;
     }
 
-    public ResponseEntity<Course> getCourseById(Integer courseId){
-        Course course= courseRepository.findById(courseId)
-                .orElseThrow(()-> new RemoteStorageHelper.StorageHelperException("Course doesnt exist"));
-        return ResponseEntity.ok(course);
+    public Course getCourseById(Integer courseId){
+        Course course= courseRepository.getCourseById(courseId);
+
+        return course;
     }
 
     public Course addCourse(Course course) {
@@ -42,7 +42,7 @@ public class CourseService {
     }
 
     public Course updateCourse(Integer id, Course course){
-        Course updatedCourse = courseRepository.findCourseById(id);
+        Course updatedCourse = courseRepository.getCourseById(id);
         updatedCourse.setName(course.getName());
         updatedCourse.setDescription(course.getDescription());
         updatedCourse.setEmbedLink(course.getEmbedLink());
@@ -51,7 +51,7 @@ public class CourseService {
     }
 
     public boolean deleteCourse(Integer id){
-        Course course = courseRepository.findCourseById(id);
+        Course course = courseRepository.getCourseById(id);
         courseRepository.delete(course);
         return true;
     }

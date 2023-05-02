@@ -39,7 +39,7 @@ public class CourseController {
     }
 
     @GetMapping("/showById/{courseId}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Integer courseId){
+    public Course getCourseById(@PathVariable Integer courseId){
         return courseService.getCourseById(courseId);
     }
 
