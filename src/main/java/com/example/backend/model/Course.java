@@ -27,6 +27,9 @@ public class Course {
     @ManyToMany
     List<User> userList = new ArrayList<>();
 
+    @OneToMany
+    List<Quiz> quizList;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -34,4 +37,6 @@ public class Course {
     public Integer getId() {
         return id;
     }
+
+
 }

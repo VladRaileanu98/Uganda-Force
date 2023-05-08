@@ -1,5 +1,9 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.FoundDuplicateException;
+import com.example.backend.exception.NoCourseException;
+import com.example.backend.exception.NoQuizException;
+import com.example.backend.exception.NoUserException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import com.google.cloud.storage.testing.RemoteStorageHelper;
@@ -15,11 +19,13 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final QuizRepository quizRepository;
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
@@ -48,6 +54,22 @@ public class CourseService {
         updatedCourse.setEmbedLink(course.getEmbedLink());
         courseRepository.save(updatedCourse);
         return updatedCourse;
+    }
+
+    public void assignQuizToCourse(Integer quizId, Integer courseId) throws NoCourseException, NoQuizException, FoundDuplicateException {
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if(courseOptional.isEmpty())
+            throw new NoCourseException();
+        else if(quizOptional.isEmpty()){
+            throw new NoQuizException();
+        }
+        else {
+            if (courseOptional.get().getQuizList().contains(quizOptional.get()))
+                throw new FoundDuplicateException();
+            courseOptional.get().getQuizList().add(quizOptional.get());
+            courseRepository.save(courseOptional.get());
+        }
     }
 
     public boolean deleteCourse(Integer id){

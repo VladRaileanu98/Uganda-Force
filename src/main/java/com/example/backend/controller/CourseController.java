@@ -1,5 +1,8 @@
 package com.example.backend.controller;
 
+import com.example.backend.exception.FoundDuplicateException;
+import com.example.backend.exception.NoCourseException;
+import com.example.backend.exception.NoQuizException;
 import com.example.backend.model.Course;
 import com.example.backend.model.User;
 import com.example.backend.service.CourseService;
@@ -60,6 +63,11 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
+    @PutMapping("/add/{quizId}/{courseId}")
+    public ResponseEntity<String> assignQuizToCourse(@PathVariable Integer quizId, @PathVariable  Integer courseId) throws NoCourseException, NoQuizException, FoundDuplicateException {
+        courseService.assignQuizToCourse(quizId,courseId);
+        return ResponseEntity.ok("added quiz no." + quizId + " to course with id: " + courseId);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteCourse(@PathVariable Integer id){
         boolean deleted = false;
