@@ -19,7 +19,7 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/questions")
+@RequestMapping("/question")
 public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
@@ -41,7 +41,7 @@ public class QuestionController {
 
 
     // build create question REST API
-    @PostMapping
+    @PostMapping("/create")
     public Question createQuestion(@RequestBody Question question){
         question.setNoOfChoices(0);
         return questionRepository.save(question);
@@ -56,8 +56,8 @@ public class QuestionController {
         return ResponseEntity.ok(question);
     }
 
-    @PutMapping("choices/add/{questionId}/{choiceId}")
-    public void addChoice(@PathVariable Integer questionId, @PathVariable Integer choiceId) throws NoQuestionException, NoChoiceException {
+    @PutMapping("/choices/add/{choiceId}/{questionId}")
+    public void addChoice(@PathVariable Integer choiceId, @PathVariable Integer questionId) throws NoQuestionException, NoChoiceException {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Optional<Choice> optionalChoice = choiceRepository.findById(choiceId);
         if(!optionalQuestion.isPresent())

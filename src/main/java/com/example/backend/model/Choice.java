@@ -25,6 +25,6 @@ public class Choice {
     @ManyToOne
     Question question;
 
-    @ManyToMany
-    List<User> user;
+//    @ManyToMany
+//    List<User> user;
 }

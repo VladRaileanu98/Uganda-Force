@@ -70,8 +70,8 @@ public class QuizController {
     }
 
 
-    @PutMapping("questions/add/{quizId}/{questionId}")
-    public void addQuestion(@PathVariable Integer quizId, @PathVariable Integer questionId) throws NoQuizException, NoQuestionException {
+    @PutMapping("/questions/add/{questionId}/{quizId}")
+    public void addQuestion(@PathVariable Integer questionId, @PathVariable Integer quizId) throws NoQuizException, NoQuestionException {
         Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         if(!optionalQuiz.isPresent())
@@ -86,8 +86,8 @@ public class QuizController {
         }
     }
 
-    @PutMapping("grades/add/{quizId}/{gradeId}")
-    public void addGrade(@PathVariable Integer quizId, @PathVariable Integer gradeId) throws NoQuizException, NoGradeException {
+    @PutMapping("/grades/add/{gradeId}/{quizId}")
+    public void addGrade(@PathVariable Integer gradeId, @PathVariable Integer quizId) throws NoQuizException, NoGradeException {
         Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
         Optional<Grade> optionalGrade = gradeRepository.findById(gradeId);
         if(!optionalQuiz.isPresent())

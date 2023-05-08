@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/choices")
+@RequestMapping("/choice")
 public class ChoiceController {
     @Autowired
     private ChoiceRepository choiceRepository;
@@ -24,7 +24,7 @@ public class ChoiceController {
         return choiceRepository.findAll();
     }
     // build create choice REST API
-    @PostMapping
+    @PostMapping("/create")
     public Choice createChoice(@RequestBody Choice choice){
         return choiceRepository.save(choice);
     }
