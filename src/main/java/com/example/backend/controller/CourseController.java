@@ -4,7 +4,10 @@ import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
 import com.example.backend.exception.NoQuizException;
 import com.example.backend.model.Course;
+import com.example.backend.model.Quiz;
 import com.example.backend.model.User;
+import com.example.backend.repository.CourseRepository;
+import com.example.backend.repository.QuizRepository;
 import com.example.backend.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,8 @@ import java.util.Map;
 @RequestMapping("/course")
 public class CourseController {
     private final CourseService courseService;
+    private final CourseRepository courseRepository;
+    private final QuizRepository quizRepository;
 
     @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -46,11 +51,13 @@ public class CourseController {
         return courseService.getCourseById(courseId);
     }
 
-//    @RequestMapping(value = "/showById/{courseId}", method = RequestMethod.GET)
-//    public Course findCourseById(@PathVariable Integer courseId) {
-//        return courseService.findCourseById(courseId);
-//    }
-//
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/quizzes/{courseId}")
+    public List<Quiz> getAllQuizzes(@PathVariable Integer courseId){
+        Course course = courseRepository.getCourseById(courseId);
+        return course.getQuizList();
+    }
+
     @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Course createCourse(@RequestBody Course course){
@@ -77,14 +84,4 @@ public class CourseController {
         return ResponseEntity.ok(response);
     }
 
-
-//    @GetMapping("file/download-file/{courseId}/{fileName}")
-//    public void downloadObject(@PathVariable Integer courseId, @PathVariable String fileName) {
-//        courseService.downloadObject(courseId, fileName, false);
-//    }
-//
-//    @GetMapping("file/download-file/{courseId}/shared/{fileName}")
-//    public void downloadObject2(@PathVariable Integer courseId, @PathVariable String fileName) {
-//        courseService.downloadObject(courseId, fileName, true);
-//    }
 }

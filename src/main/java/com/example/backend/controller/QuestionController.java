@@ -35,7 +35,7 @@ public class QuestionController {
     }
 
     @GetMapping("/choices/{questionId}")
-    public List<Choice> getAllChoicesByQuestion(@PathVariable Integer questionId) throws NoQuestionException {
+    public List<Choice> getAllChoicesByQuestion(@PathVariable Integer questionId){
         return questionService.getAllChoicesByQuestion(questionId);
     }
 

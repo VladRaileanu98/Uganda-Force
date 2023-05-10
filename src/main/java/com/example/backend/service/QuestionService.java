@@ -15,12 +15,15 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public List<Choice> getAllChoicesByQuestion(Integer questionId) throws NoQuestionException {
-        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+    public List<Choice> getAllChoicesByQuestion(Integer questionId) {
+//        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+//
+//        if(!optionalQuestion.isPresent()) throw new NoQuestionException();
+//        else{
+//            return optionalQuestion.get().getChoiceList();
+//        }
 
-        if(!optionalQuestion.isPresent()) throw new NoQuestionException();
-        else{
-            return optionalQuestion.get().getChoiceList();
-        }
+        Question question = questionRepository.getQuestionById(questionId);
+        return question.getChoiceList();
     }
 }
