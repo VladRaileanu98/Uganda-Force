@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/question")
@@ -34,7 +34,7 @@ public class QuestionController {
         return questionRepository.findAll();
     }
 
-    @GetMapping("choices/{questionId}")
+    @GetMapping("/choices/{questionId}")
     public List<Choice> getAllChoicesByQuestion(@PathVariable Integer questionId) throws NoQuestionException {
         return questionService.getAllChoicesByQuestion(questionId);
     }
