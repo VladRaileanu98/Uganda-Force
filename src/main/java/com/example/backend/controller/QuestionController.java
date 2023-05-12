@@ -68,6 +68,8 @@ public class QuestionController {
         else{
             optionalQuestion.get().getChoiceList().add(optionalChoice.get());
             optionalQuestion.get().incrementNoOfChoices();
+            optionalChoice.get().setQuestion(optionalQuestion.get());
+            choiceRepository.save(optionalChoice.get());
             questionRepository.save(optionalQuestion.get());
         }
     }

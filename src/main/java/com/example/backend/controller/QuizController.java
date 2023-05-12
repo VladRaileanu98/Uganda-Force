@@ -27,18 +27,12 @@ public class QuizController {
     @Autowired
     private QuizRepository quizRepository;
     @Autowired
-    private QuestionRepository questionRepository;
-    @Autowired
-    private GradeRepository gradeRepository;
-
-    @Autowired
     private QuizService quizService;
     @GetMapping
     public List<Quiz> getAllQuizzes(){
         return quizRepository.findAll();
     }
 
-    //******* NU VREA SAM EARGA IN FRONTEND
     @GetMapping("questions/{quizId}")
     public List<Question> getAllQuestionsByQuiz(@PathVariable Integer quizId) throws NoQuizException {
         return quizService.getAllQuestionsByQuiz(quizId);
@@ -48,83 +42,40 @@ public class QuizController {
         return quizService.getAllGradesByQuiz(quizId);
     }
 
-    @PutMapping("/increment/{id}")
-    public void incrementNoQuestionQuiz(@PathVariable Integer id){
-        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
-        optionalQuiz.get().incrementNoOfQuestions();
-        quizRepository.save(optionalQuiz.get());
+    @GetMapping("/{id}")
+    public Quiz getQuizById(@PathVariable Integer id){
+        return quizService.getQuizById(id);
     }
 
-    @GetMapping("{id}")
-    public Quiz getQuizById(@PathVariable Integer id){
-        Quiz quiz = quizRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Quiz not exist with id:" + id));
-
-        return quiz;
+    @GetMapping("/{quizId}/course")
+    public Integer getParentCourseId(@PathVariable Integer quizId){
+        return quizService.getParentCourseId(quizId);
     }
 
     @PostMapping("/create")
     public Quiz createQuiz(@RequestBody Quiz quiz){
-        quiz.setNoOfQuestions(0);
-        return quizRepository.save(quiz);
+        return quizService.createQuiz(quiz);
     }
 
 
     @PutMapping("/questions/add/{questionId}/{quizId}")
     public void addQuestion(@PathVariable Integer questionId, @PathVariable Integer quizId) throws NoQuizException, NoQuestionException {
-        Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
-        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        if(!optionalQuiz.isPresent())
-            throw new NoQuizException();
-        else if(!optionalQuestion.isPresent()){
-            throw new NoQuestionException();
-        }
-        else{
-            optionalQuiz.get().getQuestionList().add(optionalQuestion.get());
-            optionalQuiz.get().incrementNoOfQuestions();
-            quizRepository.save(optionalQuiz.get());
-        }
+        quizService.addQuestion(questionId,quizId);
     }
 
     @PutMapping("/grades/add/{gradeId}/{quizId}")
     public void addGrade(@PathVariable Integer gradeId, @PathVariable Integer quizId) throws NoQuizException, NoGradeException {
-        Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
-        Optional<Grade> optionalGrade = gradeRepository.findById(gradeId);
-        if(!optionalQuiz.isPresent())
-            throw new NoQuizException();
-        else if(!optionalGrade.isPresent()){
-            throw new NoGradeException();
-        }
-        else{
-            optionalQuiz.get().getGradeList().add(optionalGrade.get());
-            optionalQuiz.get().incrementNoOfQuestions();
-            quizRepository.save(optionalQuiz.get());
-        }
+        quizService.addGrade(gradeId,quizId);
     }
-    // build update Quiz REST API
+
     @PutMapping("{id}")
     public ResponseEntity<Quiz> updateQuiz(@PathVariable Integer id, @RequestBody Quiz quizDetails){
-        Quiz updateQuiz = quizRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Quiz doesnt exist:" + id));
-
-        updateQuiz.setIsVisible(quizDetails.getIsVisible());
-        updateQuiz.setTimeLimit(quizDetails.getTimeLimit());
-        updateQuiz.setDeadline(quizDetails.getDeadline());
-
-        quizRepository.save(updateQuiz);
-
-        return ResponseEntity.ok(updateQuiz);
+        return quizService.updateQuiz(id, quizDetails);
     }
 
-    // build delete Quiz REST API
     @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteQuiz(@PathVariable Integer id){
-        Quiz quiz = quizRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Quiz doesnt exist with id: "+id));
-
-        quizRepository.delete(quiz);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return quizService.deleteQuiz(id);
     }
 
 }

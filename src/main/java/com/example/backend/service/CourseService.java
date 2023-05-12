@@ -69,6 +69,8 @@ public class CourseService {
             if (courseOptional.get().getQuizList().contains(quizOptional.get()))
                 throw new FoundDuplicateException();
             courseOptional.get().getQuizList().add(quizOptional.get());
+            quizOptional.get().setCourse(courseOptional.get());
+            quizRepository.save(quizOptional.get());
             courseRepository.save(courseOptional.get());
         }
     }

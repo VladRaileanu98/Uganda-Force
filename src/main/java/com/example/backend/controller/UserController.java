@@ -22,7 +22,7 @@ import java.util.*;
 public class UserController {
     private final UserService userService;
 
-    @RequestMapping(value = "/showAll", method = RequestMethod.GET)
+    @GetMapping( "/showAll")
     public List<User> showUsers(){
         return userService.getUsers();
     }
@@ -32,7 +32,7 @@ public class UserController {
         return userService.getUserCourses(userId);
     }
 
-    @RequestMapping(value = "/showById/{userId}", method = RequestMethod.GET)
+    @GetMapping( "/showById/{userId}")
     public User findUserById(@PathVariable Integer userId) {
         return userService.findUserById(userId);
     }
@@ -44,13 +44,13 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:8080")
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @PostMapping(value = "/signUp")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
 
 
-    @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
+    @PutMapping( "/updatePassword")
     public User updateUserPasswordByEmail(@Valid @RequestBody User theUser) {
         try {
             return userService.updateUserPasswordByEmail(theUser);

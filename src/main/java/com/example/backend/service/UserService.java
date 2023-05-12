@@ -20,7 +20,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final CourseRepository courseRepository;
 
     public List<User> getUsers(){
