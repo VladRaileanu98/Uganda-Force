@@ -21,6 +21,10 @@ public class ChoiceService {
         return choiceRepository.findAll();
     }
 
+    public Integer getParentQuestionId(@PathVariable Integer choiceId){
+        return choiceRepository.getChoiceById(choiceId).getParentQuestionId();
+    }
+
     public ResponseEntity<Choice> getChoiceById(Integer id){
         Choice choice = choiceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Choice not exist with id:" + id));

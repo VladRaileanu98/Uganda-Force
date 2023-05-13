@@ -47,6 +47,11 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
+    @GetMapping("/{questionId}/quiz")
+    public Integer getParentQuizId(@PathVariable Integer questionId){
+        return questionService.getParentQuizId(questionId);
+    }
+
     @PutMapping("/choices/add/{choiceId}/{questionId}")
     public void addChoice(@PathVariable Integer choiceId, @PathVariable Integer questionId) throws NoQuestionException, NoChoiceException {
         questionService.addChoice(choiceId,questionId);

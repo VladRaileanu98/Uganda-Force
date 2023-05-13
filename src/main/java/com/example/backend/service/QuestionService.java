@@ -28,6 +28,10 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    public Integer getParentQuizId(@PathVariable Integer questionId){
+        return questionRepository.getQuestionById(questionId).getParentQuizId();
+    }
+
     public Question createQuestion(Question question){
         question.setNoOfChoices(0);
         return questionRepository.save(question);

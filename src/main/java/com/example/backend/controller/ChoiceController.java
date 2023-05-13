@@ -28,6 +28,11 @@ public class ChoiceController {
     public ResponseEntity<Choice> getChoiceById(@PathVariable Integer id){
         return choiceService.getChoiceById(id);
     }
+
+    @GetMapping("/{choiceId}/question")
+    public Integer getParentQuestionId(@PathVariable Integer choiceId){
+        return choiceService.getParentQuestionId(choiceId);
+    }
     @PostMapping("/create")
     public Choice createChoice(@RequestBody Choice choice){
         return choiceService.createChoice(choice);
