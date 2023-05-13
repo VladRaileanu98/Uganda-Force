@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import javax.persistence.*;
 import java.util.List;
 
-@CrossOrigin("*")
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,9 +23,8 @@ public class Choice {
 
     private Boolean isCorrect;
 
-    @ManyToOne
-    Question question;
+//    @ManyToOne
+//    private Question question;
+    private Integer parentQuestionId;
 
-//    @ManyToMany
-//    List<User> user;
 }

@@ -25,19 +25,17 @@ import java.util.Optional;
 @RequestMapping("/quiz")
 public class QuizController {
     @Autowired
-    private QuizRepository quizRepository;
-    @Autowired
     private QuizService quizService;
     @GetMapping
     public List<Quiz> getAllQuizzes(){
-        return quizRepository.findAll();
+        return quizService.getAllQuizzes();
     }
 
-    @GetMapping("questions/{quizId}")
+    @GetMapping("/questions/{quizId}")
     public List<Question> getAllQuestionsByQuiz(@PathVariable Integer quizId) throws NoQuizException {
         return quizService.getAllQuestionsByQuiz(quizId);
     }
-    @GetMapping("grades/{quizId}")
+    @GetMapping("/grades/{quizId}")
     public List<Grade> getAllGradesByQuiz(@PathVariable Integer quizId) throws NoQuizException {
         return quizService.getAllGradesByQuiz(quizId);
     }

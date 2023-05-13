@@ -25,9 +25,6 @@ import java.util.Map;
 @RequestMapping("/course")
 public class CourseController {
     private final CourseService courseService;
-    private final CourseRepository courseRepository;
-    private final QuizRepository quizRepository;
-
     @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<List<Course>> getAllCourses() {
@@ -51,11 +48,9 @@ public class CourseController {
         return courseService.getCourseById(courseId);
     }
 
-    @CrossOrigin(origins = {"*"})
     @GetMapping("/quizzes/{courseId}")
     public List<Quiz> getAllQuizzes(@PathVariable Integer courseId){
-        Course course = courseRepository.getCourseById(courseId);
-        return course.getQuizList();
+        return courseService.getAllQuizzes(courseId);
     }
 
     @CrossOrigin(origins = "http://localhost:8080")

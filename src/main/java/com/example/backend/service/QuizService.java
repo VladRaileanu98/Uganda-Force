@@ -27,6 +27,10 @@ public class QuizService {
     private final QuestionRepository questionRepository;
     private final GradeRepository gradeRepository;
 
+    public List<Quiz> getAllQuizzes(){
+        return quizRepository.findAll();
+    }
+
     public List<Question> getAllQuestionsByQuiz(Integer quizId) throws NoQuizException{
         Optional<Quiz> optionalQuiz = quizRepository.findById(quizId);
 
@@ -44,8 +48,7 @@ public class QuizService {
     }
 
     public Integer getParentCourseId(Integer quizId){
-        Quiz quiz = quizRepository.findQuizById(quizId);
-        return quiz.getCourse().getId();
+        return quizRepository.findQuizById(quizId).getParentCourseId();
     }
 
     public List<Grade> getAllGradesByQuiz(Integer quizId) throws NoQuizException{
@@ -73,7 +76,7 @@ public class QuizService {
         else{
             optionalQuiz.get().getQuestionList().add(optionalQuestion.get());
             optionalQuiz.get().incrementNoOfQuestions();
-            optionalQuestion.get().setQuiz(optionalQuiz.get());
+            optionalQuestion.get().setParentQuizId(quizId);
             questionRepository.save(optionalQuestion.get());
             quizRepository.save(optionalQuiz.get());
         }

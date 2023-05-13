@@ -1,10 +1,14 @@
 package com.example.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
@@ -13,7 +17,6 @@ import java.util.List;
 
 @CrossOrigin("*")
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,8 +36,9 @@ public class Question {
     @OneToMany
     List<Choice> choiceList = new ArrayList<>();
 
-    @ManyToOne
-    Quiz quiz;
+//    @ManyToOne
+//    private Quiz quiz;
+    private Integer parentQuizId;
 
     public void incrementNoOfChoices(){
         this.noOfChoices = this.noOfChoices + 1;
