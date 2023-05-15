@@ -34,6 +34,9 @@ public class Course {
     @OneToMany
     private List<Quiz> quizList = new ArrayList<>();
 
+    @OneToMany
+    private List<Module> modules = new ArrayList<>();
+
     public void setId(Integer id) {
         this.id = id;
     }
