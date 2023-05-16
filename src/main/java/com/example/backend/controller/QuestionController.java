@@ -36,12 +36,6 @@ public class QuestionController {
         return questionService.getAllChoicesByQuestion(questionId);
     }
 
-    @PostMapping("/create")
-    public Question createQuestion(@RequestBody Question question){
-        return questionService.createQuestion(question);
-    }
-
-    // buikld get question by id REST API
     @GetMapping("{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Integer id){
         return questionService.getQuestionById(id);
@@ -51,6 +45,14 @@ public class QuestionController {
     public Integer getParentQuizId(@PathVariable Integer questionId){
         return questionService.getParentQuizId(questionId);
     }
+
+    @PostMapping("/create")
+    public Question createQuestion(@RequestBody Question question){
+        return questionService.createQuestion(question);
+    }
+
+    // buikld get question by id REST API
+
 
     @PutMapping("/choices/add/{choiceId}/{questionId}")
     public void addChoice(@PathVariable Integer choiceId, @PathVariable Integer questionId) throws NoQuestionException, NoChoiceException {

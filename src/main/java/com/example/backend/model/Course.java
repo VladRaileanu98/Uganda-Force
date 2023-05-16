@@ -3,7 +3,6 @@ package com.example.backend.model;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +34,8 @@ public class Course {
     private List<Quiz> quizList = new ArrayList<>();
 
     @OneToMany
-    private List<Module> modules = new ArrayList<>();
+    private List<Lesson> lessons = new ArrayList<>();
+
 
     public void setId(Integer id) {
         this.id = id;

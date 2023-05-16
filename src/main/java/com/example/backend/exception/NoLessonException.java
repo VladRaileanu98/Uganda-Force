@@ -1,4 +1,4 @@
 package com.example.backend.exception;
 
-public class NoModuleException {
+public class NoLessonException {
 }

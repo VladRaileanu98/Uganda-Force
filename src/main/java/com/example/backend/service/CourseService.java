@@ -3,22 +3,10 @@ package com.example.backend.service;
 import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
 import com.example.backend.exception.NoQuizException;
-import com.example.backend.exception.NoUserException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
-import com.google.cloud.storage.testing.RemoteStorageHelper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.storage.*;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,15 +16,14 @@ import java.util.Optional;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final QuizRepository quizRepository;
+    private final UserRepository userRepository;
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
     public List<Course> getAllCoursesByUserId(Integer userId){
-        List<User> userList = new ArrayList<>();
-
-        return null;
+        return userRepository.findById(userId).get().getCourseList();
     }
 
     public List<Quiz> getAllQuizzes(Integer courseId){

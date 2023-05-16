@@ -28,7 +28,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public Integer getParentQuizId(@PathVariable Integer questionId){
+    public Integer getParentQuizId(Integer questionId){
         return questionRepository.getQuestionById(questionId).getParentQuizId();
     }
 

@@ -1,6 +1,5 @@
 package com.example.backend.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Module {
+public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +21,6 @@ public class Module {
     private String name;
     @NotNull
     private String description;
-    @NotNull
-    private String attachment;
 
     @ManyToOne
     private Course course;
