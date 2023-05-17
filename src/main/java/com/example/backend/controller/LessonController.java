@@ -34,6 +34,11 @@ public class LessonController {
         return lessonService.getAllLessonsByCourseId(courseId);
     }
 
+    @GetMapping("/{lessonId}/course")
+    private Integer getParentCourseId(@PathVariable Integer lessonId){
+        return lessonService.getParentCourseId(lessonId);
+    }
+
     @PostMapping("/create")
     public Lesson createLesson(@RequestBody Lesson lesson){
         return lessonService.createLesson(lesson);

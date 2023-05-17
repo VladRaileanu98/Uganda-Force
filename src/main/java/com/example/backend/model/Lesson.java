@@ -24,4 +24,6 @@ public class Lesson {
 
     @ManyToOne
     private Course course;
+
+    private Integer parentCourseId;
 }

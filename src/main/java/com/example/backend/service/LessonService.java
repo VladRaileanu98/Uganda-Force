@@ -31,6 +31,10 @@ public class LessonService {
         return courseRepository.findById(courseId).get().getLessons();
     }
 
+    public Integer getParentCourseId(Integer lessonId){
+        return lessonRepository.getLessonById(lessonId).getParentCourseId();
+    }
+
     public Lesson createLesson(Lesson lesson){
         return lessonRepository.save(lesson);
     }
