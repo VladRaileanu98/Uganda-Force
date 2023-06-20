@@ -2,8 +2,10 @@ package com.example.backend.controller;
 
 import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
+import com.example.backend.exception.NoLessonException;
 import com.example.backend.exception.NoQuizException;
 import com.example.backend.model.Course;
+import com.example.backend.model.Lesson;
 import com.example.backend.model.Quiz;
 import com.example.backend.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +52,11 @@ public class CourseController {
         return courseService.getAllQuizzes(courseId);
     }
 
+    @GetMapping("/lessons/{courseId}")
+    public List<Lesson> getAllLessons(@PathVariable Integer courseId){
+        return courseService.getAllLessons(courseId);
+    }
+
     @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Course createCourse(@RequestBody Course course){
@@ -62,10 +69,16 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
-    @PutMapping("/add/{quizId}/{courseId}")
+    @PutMapping("/add-quiz/{quizId}/{courseId}")
     public ResponseEntity<String> assignQuizToCourse(@PathVariable Integer quizId, @PathVariable  Integer courseId) throws NoCourseException, NoQuizException, FoundDuplicateException {
         courseService.assignQuizToCourse(quizId,courseId);
         return ResponseEntity.ok("added quiz no." + quizId + " to course with id: " + courseId);
+    }
+
+    @PutMapping("/add-lesson/{lessonId}/{courseId}")
+    public ResponseEntity<String> assignLessonToCourse(@PathVariable Integer lessonId, @PathVariable  Integer courseId) throws NoCourseException, NoLessonException, FoundDuplicateException {
+        courseService.assignLessonToCourse(lessonId,courseId);
+        return ResponseEntity.ok("added lesson no." + lessonId + " to course with id: " + courseId);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteCourse(@PathVariable Integer id){

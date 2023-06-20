@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.exception.FoundDuplicateException;
 import com.example.backend.exception.NoCourseException;
+import com.example.backend.exception.NoLessonException;
 import com.example.backend.exception.NoQuizException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final QuizRepository quizRepository;
+    private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
 
     public List<Course> getAllCourses() {
@@ -29,6 +31,11 @@ public class CourseService {
     public List<Quiz> getAllQuizzes(Integer courseId){
         Course course = courseRepository.getCourseById(courseId);
         return course.getQuizList();
+    }
+
+    public List<Lesson> getAllLessons(Integer courseId){
+        Course course = courseRepository.getCourseById(courseId);
+        return course.getLessonList();
     }
 
     public Course getCourseById(Integer courseId){
@@ -65,6 +72,24 @@ public class CourseService {
             courseOptional.get().getQuizList().add(quizOptional.get());
             quizOptional.get().setParentCourseId(courseId);
             quizRepository.save(quizOptional.get());
+            courseRepository.save(courseOptional.get());
+        }
+    }
+
+    public void assignLessonToCourse(Integer lessonId, Integer courseId) throws NoCourseException, NoLessonException, FoundDuplicateException {
+        Optional<Lesson> lessonOptional = lessonRepository.findById(lessonId);
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if(courseOptional.isEmpty())
+            throw new NoCourseException();
+        else if(lessonOptional.isEmpty()){
+            throw new NoLessonException();
+        }
+        else {
+            if (courseOptional.get().getLessonList().contains(lessonOptional.get()))
+                throw new FoundDuplicateException();
+            courseOptional.get().getLessonList().add(lessonOptional.get());
+            lessonOptional.get().setParentCourseId(courseId);
+            lessonRepository.save(lessonOptional.get());
             courseRepository.save(courseOptional.get());
         }
     }

@@ -34,7 +34,7 @@ public class Course {
     private List<Quiz> quizList = new ArrayList<>();
 
     @OneToMany
-    private List<Lesson> lessons = new ArrayList<>();
+    private List<Lesson> lessonList = new ArrayList<>();
 
 
     public void setId(Integer id) {

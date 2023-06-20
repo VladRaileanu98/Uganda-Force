@@ -27,9 +27,9 @@ public class LessonService {
         return lessonRepository.getLessonById(lessonId);
     }
 
-    public List<Lesson> getAllLessonsByCourseId(@PathVariable Integer courseId){
-        return courseRepository.findById(courseId).get().getLessons();
-    }
+//    public List<Lesson> getAllLessonsByCourseId(@PathVariable Integer courseId){
+//        return courseRepository.findById(courseId).get().getLessons();
+//    }
 
     public Integer getParentCourseId(Integer lessonId){
         return lessonRepository.getLessonById(lessonId).getParentCourseId();

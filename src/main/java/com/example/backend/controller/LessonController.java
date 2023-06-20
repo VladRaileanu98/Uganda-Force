@@ -28,10 +28,10 @@ public class LessonController {
         return lessonService.getLessonById(lessonId);
     }
 
-    @GetMapping("/showAll/{courseId}")
-    public List<Lesson> getAllLessonsByCourseId(@PathVariable Integer courseId){
-        return lessonService.getAllLessonsByCourseId(courseId);
-    }
+//    @GetMapping("/showAll/{courseId}")
+//    public List<Lesson> getAllLessonsByCourseId(@PathVariable Integer courseId){
+//        return lessonService.getAllLessonsByCourseId(courseId);
+//    }
 
     @GetMapping("/{lessonId}/course")
     private Integer getParentCourseId(@PathVariable Integer lessonId){
