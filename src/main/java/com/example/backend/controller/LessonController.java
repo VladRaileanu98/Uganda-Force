@@ -16,7 +16,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/lesson")
 public class LessonController {
-
     private final LessonService lessonService;
 
     @GetMapping("/showAll")
