@@ -60,7 +60,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/add/{courseId}/{userId}")
+    @PutMapping("/add-course/{courseId}/{userId}")
     public ResponseEntity<String> assignCourseToUser(@PathVariable Integer courseId, @PathVariable  Integer userId) throws NoCourseException, NoUserException, FoundDuplicateException {
         userService.assignCourseToUser(courseId,userId);
         return ResponseEntity.ok("added course no." + courseId + " to user with id: " + userId);
