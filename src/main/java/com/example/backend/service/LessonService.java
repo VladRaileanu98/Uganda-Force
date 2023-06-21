@@ -43,6 +43,7 @@ public class LessonService {
         Lesson updatedLesson = lessonRepository.getLessonById(lessonId);
         updatedLesson.setName(lesson.getName());
         updatedLesson.setDescription(lesson.getDescription());
+        updatedLesson.setQuizId(lesson.getQuizId());
         lessonRepository.save(updatedLesson);
         return updatedLesson;
     }
