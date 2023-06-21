@@ -48,7 +48,7 @@ public class QuizController {
     public Integer getParentCourseId(@PathVariable Integer quizId){
         return quizService.getParentCourseId(quizId);
     }
-
+    
     @PostMapping("/create")
     public Quiz createQuiz(@RequestBody Quiz quiz){
         return quizService.createQuiz(quiz);

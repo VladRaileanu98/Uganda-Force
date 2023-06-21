@@ -53,4 +53,6 @@ public class Quiz {
 //    @ManyToOne
 //    Course course;
     private Integer parentCourseId;
+
+    private Integer lessonId;
 }

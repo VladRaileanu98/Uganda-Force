@@ -25,4 +25,6 @@ public class Lesson {
     private String description;
 
     private Integer parentCourseId;
+
+    private Integer quizId;
 }
