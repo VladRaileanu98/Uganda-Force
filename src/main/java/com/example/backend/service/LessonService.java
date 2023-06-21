@@ -44,6 +44,7 @@ public class LessonService {
         updatedLesson.setName(lesson.getName());
         updatedLesson.setDescription(lesson.getDescription());
         updatedLesson.setQuizId(lesson.getQuizId());
+        updatedLesson.setVideoLink(lesson.getVideoLink());
         lessonRepository.save(updatedLesson);
         return updatedLesson;
     }

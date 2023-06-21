@@ -53,7 +53,7 @@ public class CourseService {
         Course updatedCourse = courseRepository.getCourseById(id);
         updatedCourse.setName(course.getName());
         updatedCourse.setDescription(course.getDescription());
-        updatedCourse.setEmbedLink(course.getEmbedLink());
+        updatedCourse.setImageLink(course.getImageLink());
         courseRepository.save(updatedCourse);
         return updatedCourse;
     }

@@ -24,6 +24,8 @@ public class Lesson {
     @NotNull
     private String description;
 
+    private String videoLink;
+
     private Integer parentCourseId;
 
     private Integer quizId;
