@@ -48,6 +48,12 @@ public class User {
     @ManyToMany
     List<Course> courseList = new ArrayList<>();
 
+    @OneToMany
+    List<Message> receivedMessages = new ArrayList<>();
+
+    @OneToMany
+    List<Message> sentMessages = new ArrayList<>();
+
     public User() {
     }
     public User(String username, String email, String password) {
@@ -55,6 +61,8 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -82,6 +90,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Message> getSentMessages() {
+        return this.sentMessages;
+    }
+    public List<Message> getReceivedMessages(){
+        return this.receivedMessages;
     }
 
     public void setPassword(String password) {
